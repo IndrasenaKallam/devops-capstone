@@ -6,18 +6,24 @@ pipeline {
     
     agent any
     stages {
+        stage ('cleaning workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        
+        stage ('Cloning Git') {
+            steps {
+                sh 'git clone https://github.com/IndrasenaKallam/devops-capstone.git'
+            }
+        }
         
         stage ('Lint HTML') {
             steps {
                 sh 'tidy -q -e *.html'
             }
         }
-
-        stage ('Cloning Git') {
-            steps {
-                sh 'git clone https://github.com/IndrasenaKallam/devops-capstone.git'
-            }
-        }
+ 
 
         stage('Building image') {
             steps {
